@@ -1,0 +1,6 @@
+framework module Pods_AI_Accessibility {
+  umbrella header "Pods-AI-Accessibility-umbrella.h"
+
+  export *
+  module * { export * }
+}
