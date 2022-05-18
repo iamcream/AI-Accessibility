@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8DAA8BE95602E87A83C3122D /* Pods_AI_Accessibility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C26799E390D3D3CE3247F9 /* Pods_AI_Accessibility.framework */; };
+		B3608EAF283253B000482081 /* GPUImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3608EA92832539B00482081 /* GPUImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3B24D6F282BBA10004A189A /* ImageTouchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B24D6E282BBA10004A189A /* ImageTouchViewController.swift */; };
 		B3C2D99C282AA76C0091CB47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2D99B282AA76C0091CB47 /* AppDelegate.swift */; };
 		B3C2D99E282AA76C0091CB47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C2D99D282AA76C0091CB47 /* SceneDelegate.swift */; };
@@ -18,10 +19,62 @@
 		B3D28557282D33B600ECD78E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D28556282D33B600ECD78E /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B3608EA42832539B00482081 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3608E9D2832539A00482081 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC6E7CAB1C39A9D8006DF678;
+			remoteInfo = GPUImage_macOS;
+		};
+		B3608EA62832539B00482081 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3608E9D2832539A00482081 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC6E7CB51C39A9D8006DF678;
+			remoteInfo = GPUImageTests_macOS;
+		};
+		B3608EA82832539B00482081 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3608E9D2832539A00482081 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9E34E91E524A2200B8604F;
+			remoteInfo = GPUImage_iOS;
+		};
+		B3608EAA2832539B00482081 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3608E9D2832539A00482081 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9E34F11E524A2200B8604F;
+			remoteInfo = GPUImageTests_iOS;
+		};
+		B3608EAC283253A300482081 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3608E9D2832539A00482081 /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9E34E81E524A2200B8604F;
+			remoteInfo = GPUImage_iOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B3608E99283247D900482081 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B3608EAF283253B000482081 /* GPUImage.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		315A048C3186B114EF784B06 /* Pods-AI-Accessibility.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AI-Accessibility.release.xcconfig"; path = "Target Support Files/Pods-AI-Accessibility/Pods-AI-Accessibility.release.xcconfig"; sourceTree = "<group>"; };
 		80C26799E390D3D3CE3247F9 /* Pods_AI_Accessibility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AI_Accessibility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9848203B8D51B24C407B9ADF /* Pods-AI-Accessibility.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AI-Accessibility.debug.xcconfig"; path = "Target Support Files/Pods-AI-Accessibility/Pods-AI-Accessibility.debug.xcconfig"; sourceTree = "<group>"; };
+		B3608E9D2832539A00482081 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = GPUImage.xcodeproj; sourceTree = "<group>"; };
 		B3B24D6E282BBA10004A189A /* ImageTouchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTouchViewController.swift; sourceTree = "<group>"; };
 		B3C2D998282AA76C0091CB47 /* AI-Accessibility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AI-Accessibility.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3C2D99B282AA76C0091CB47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,8 +113,18 @@
 				9848203B8D51B24C407B9ADF /* Pods-AI-Accessibility.debug.xcconfig */,
 				315A048C3186B114EF784B06 /* Pods-AI-Accessibility.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B3608E9E2832539A00482081 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B3608EA52832539B00482081 /* GPUImage.framework */,
+				B3608EA72832539B00482081 /* GPUImageTests_macOS.xctest */,
+				B3608EA92832539B00482081 /* GPUImage.framework */,
+				B3608EAB2832539B00482081 /* GPUImageTests_iOS.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		B3C2D98F282AA76C0091CB47 = {
@@ -85,6 +148,7 @@
 		B3C2D99A282AA76C0091CB47 /* AI-Accessibility */ = {
 			isa = PBXGroup;
 			children = (
+				B3608E9D2832539A00482081 /* GPUImage.xcodeproj */,
 				B3C2D99B282AA76C0091CB47 /* AppDelegate.swift */,
 				B3C2D99D282AA76C0091CB47 /* SceneDelegate.swift */,
 				B3C2D99F282AA76C0091CB47 /* ViewController.swift */,
@@ -110,10 +174,12 @@
 				B3C2D995282AA76C0091CB47 /* Frameworks */,
 				B3C2D996282AA76C0091CB47 /* Resources */,
 				865F4EA0D95617451C16D4AB /* [CP] Embed Pods Frameworks */,
+				B3608E99283247D900482081 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B3608EAD283253A300482081 /* PBXTargetDependency */,
 			);
 			name = "AI-Accessibility";
 			productName = "AI-Accessibility";
@@ -146,12 +212,49 @@
 			mainGroup = B3C2D98F282AA76C0091CB47;
 			productRefGroup = B3C2D999282AA76C0091CB47 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B3608E9E2832539A00482081 /* Products */;
+					ProjectRef = B3608E9D2832539A00482081 /* GPUImage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				B3C2D997282AA76C0091CB47 /* AI-Accessibility */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		B3608EA52832539B00482081 /* GPUImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GPUImage.framework;
+			remoteRef = B3608EA42832539B00482081 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B3608EA72832539B00482081 /* GPUImageTests_macOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GPUImageTests_macOS.xctest;
+			remoteRef = B3608EA62832539B00482081 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B3608EA92832539B00482081 /* GPUImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GPUImage.framework;
+			remoteRef = B3608EA82832539B00482081 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B3608EAB2832539B00482081 /* GPUImageTests_iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GPUImageTests_iOS.xctest;
+			remoteRef = B3608EAA2832539B00482081 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B3C2D996282AA76C0091CB47 /* Resources */ = {
@@ -222,6 +325,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B3608EAD283253A300482081 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImage_iOS;
+			targetProxy = B3608EAC283253A300482081 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B3C2D9A1282AA76C0091CB47 /* Main.storyboard */ = {
