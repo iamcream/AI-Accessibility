@@ -92,9 +92,6 @@ extension UIImage{
         let pixelData = self.cgImage!.dataProvider!.data
         //let pixelData = CGDataProviderCopyData(CGImageGetDataProvider(self.cgImage))
         let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-        print("pos:",pos)
-        print("x:",pos.x,"y:",pos.y)
-        print("size:",self.size)
         let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
         let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
         let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
@@ -104,7 +101,6 @@ extension UIImage{
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
     
-    /*
     func cxg_getPointColor(withImage image: UIImage, point: CGPoint) -> UIColor {
 
         let pointX = trunc(point.x);
@@ -130,6 +126,118 @@ extension UIImage{
 
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
-    */
-   
+
+    // 修复图片旋转
+    func fixOrientation() -> UIImage {
+        if self.imageOrientation == .up {
+            return self
+        }
+         
+        var transform = CGAffineTransform.identity
+         
+        switch self.imageOrientation {
+        case .down, .downMirrored:
+            transform = transform.translatedBy(x: self.size.width, y: self.size.height)
+            transform = transform.rotated(by: .pi)
+            break
+             
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: self.size.width, y: 0)
+            transform = transform.rotated(by: .pi / 2)
+            break
+             
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: self.size.height)
+            transform = transform.rotated(by: -.pi / 2)
+            break
+             
+        default:
+            break
+        }
+         
+        switch self.imageOrientation {
+        case .upMirrored, .downMirrored:
+            transform = transform.translatedBy(x: self.size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+            break
+             
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translatedBy(x: self.size.height, y: 0);
+            transform = transform.scaledBy(x: -1, y: 1)
+            break
+             
+        default:
+            break
+        }
+         
+        let ctx = CGContext(data: nil, width: Int(self.size.width), height: Int(self.size.height), bitsPerComponent: self.cgImage!.bitsPerComponent, bytesPerRow: 0, space: self.cgImage!.colorSpace!, bitmapInfo: self.cgImage!.bitmapInfo.rawValue)
+        ctx?.concatenate(transform)
+         
+        switch self.imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            ctx?.draw(self.cgImage!, in: CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(size.height), height: CGFloat(size.width)))
+            break
+             
+        default:
+            ctx?.draw(self.cgImage!, in: CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(size.width), height: CGFloat(size.height)))
+            break
+        }
+         
+        let cgimg: CGImage = (ctx?.makeImage())!
+        let img = UIImage(cgImage: cgimg)
+         
+        return img
+    }
+    
+}
+
+ 
+extension UIImageView {
+    
+    var imageSizeAfterAspectFit: CGSize {
+           var newWidth: CGFloat
+           var newHeight: CGFloat
+
+           guard let image = image else { return frame.size }
+
+           if image.size.height >= image.size.width {
+               newHeight = frame.size.height
+               newWidth = ((image.size.width / (image.size.height)) * newHeight)
+               print("newWidth:",newWidth,"newHeight:",newHeight)
+               
+               if CGFloat(newWidth) > (frame.size.width) {
+                   print("if CGFloat(newWidth) > (frame.size.width)")
+                   newWidth = frame.size.width
+                   newHeight = ((image.size.height / (image.size.width)) * newWidth)
+                   print("newWidth:",newWidth,"newHeight:",newHeight)
+               }
+               /*
+               if CGFloat(newWidth) > (frame.size.width) {
+                   print("if CGFloat(newWidth) > (frame.size.width)")
+                   let diff = (frame.size.width) - newWidth
+                   newHeight = newHeight + CGFloat(diff) / newHeight * newHeight
+                   newWidth = frame.size.width
+                   print("newWidth:",newWidth,"newHeight:",newHeight)
+               }
+                */
+           } else {
+               print("else")
+               newWidth = frame.size.width
+               newHeight = (image.size.height / image.size.width) * newWidth
+               print("newWidth:",newWidth,"newHeight:",newHeight)
+               
+               if newHeight > frame.size.height {
+                   print("if newHeight > frame.size.height")
+                   let diff = Float((frame.size.height) - newHeight)
+                   newWidth = newWidth + CGFloat(diff) / newWidth * newWidth
+                   newHeight = frame.size.height
+                   print("newWidth:",newWidth,"newHeight:",newHeight)
+               }
+           }
+           return .init(width: newWidth, height: newHeight)
+       }
+    
+    
+    
+
 }
