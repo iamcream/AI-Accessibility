@@ -62,7 +62,7 @@ class ImageTouchViewController: UIViewController {
         super.viewDidLoad()
         updateFrame()
         imageTouchView.image = selectImage.fixOrientation()
-        contouredImage = detectVisionContours(sourceImage: selectImage)
+        contouredImage = detectVisionContours(sourceImage: selectImage.fixOrientation())
         print("selectimage:",selectImage.size)
         print("contoured:",contouredImage.size)
         //imageTouchView.image = contouredImage.fixOrientation()
@@ -229,7 +229,8 @@ class ImageTouchViewController: UIViewController {
         var final_color: String!
         var color_threshold: Float
         var color_threshold2: Float
-        color_threshold = 0.15
+        //color_threshold = 0.15
+        color_threshold = 0.1
         color_threshold2 = 0.05
         if (r == 1.0 && g == 1.0 && b == 1.0){
             final_color = "White"
@@ -351,7 +352,8 @@ class ImageTouchViewController: UIViewController {
         renderingContext.concatenate(flipVertical)
 
         renderingContext.scaleBy(x: size.width, y: size.height)
-        renderingContext.setLineWidth(10.0 / CGFloat(size.width))
+        //renderingContext.setLineWidth(15.0 / CGFloat(size.width))
+        renderingContext.setLineWidth(0.01)
         //renderingContext.setLineWidth(5.0)
         let redUIColor = UIColor.red
         renderingContext.setStrokeColor(redUIColor.cgColor)
@@ -374,7 +376,8 @@ class ImageTouchViewController: UIViewController {
         
         let contourRequest = VNDetectContoursRequest.init()
         contourRequest.revision = VNDetectContourRequestRevision1
-        contourRequest.contrastAdjustment = 1.0
+        contourRequest.contrastAdjustment = 2.0
+        //contourRequest.contrastPivot = 0.65
         contourRequest.detectDarkOnLight = true
         
         //contourRequest.maximumImageDimension = 512
@@ -387,6 +390,7 @@ class ImageTouchViewController: UIViewController {
                 let blackAndWhite = CustomFilter()
                 blackAndWhite.inputImage = noiseReductionFilter.outputImage!
                 let filteredImage = blackAndWhite.outputImage!
+            
 //                    let monochromeFilter = CIFilter.colorControls()
 //                    monochromeFilter.inputImage = noiseReductionFilter.outputImage!
 //                    monochromeFilter.contrast = 20.0
