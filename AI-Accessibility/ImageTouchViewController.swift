@@ -128,7 +128,8 @@ class ImageTouchViewController: UIViewController {
                     }
                 })
             }else{
-                self.audio(text: "NULL")
+                self.desc = "NULL"
+                self.audio(text: self.desc)
             }
             
         }
@@ -238,8 +239,7 @@ class ImageTouchViewController: UIViewController {
         var final_color: String!
         var color_threshold: Float
         var color_threshold2: Float
-        //color_threshold = 0.15
-        color_threshold = 0.06
+        color_threshold = 0.15
         color_threshold2 = 0.05
         if (r == 1.0 && g == 1.0 && b == 1.0){
             final_color = "White"
