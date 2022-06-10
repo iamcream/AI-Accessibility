@@ -96,32 +96,41 @@ class ImageTouchViewController: UIViewController {
                 return
             }
             let imagedata = image.jpegData(compressionQuality: 0.9)
-            let uploadDict = ["num": "123456789"] as [String:String]
-            let headers: HTTPHeaders = ["Ocp-Apim-Subscription-Key":apiKey]
-            Alamofire.upload(multipartFormData: { MultipartFormData in
-               
-                MultipartFormData.append(imagedata!, withName: "image" , fileName: "image.jpg" , mimeType: "image/jpg")
-                for(key,value) in uploadDict{
-                    MultipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)}
-            },to:apiEndPoint, headers: headers, encodingCompletion: {
-                EncodingResult in
-                switch EncodingResult{
-                case .success(let upload, _, _):
-                    upload.responseJSON { [self] response in
-                        guard let json = response.result.value! as? [String: Any] else {
-                            return
+            var imageSize: Double = Double(imagedata!.count)/1000.0
+            print("actual size of image in KB: %f ", imageSize)
+            //if bigger than 4M
+            if(imageSize < 4096.0){
+                let uploadDict = ["num": "123456789"] as [String:String]
+                let headers: HTTPHeaders = ["Ocp-Apim-Subscription-Key":apiKey]
+                Alamofire.upload(multipartFormData: { MultipartFormData in
+                   
+                    MultipartFormData.append(imagedata!, withName: "image" , fileName: "image.jpg" , mimeType: "image/jpg")
+                    for(key,value) in uploadDict{
+                        MultipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)}
+                },to:apiEndPoint, headers: headers, encodingCompletion: {
+                    EncodingResult in
+                    switch EncodingResult{
+                    case .success(let upload, _, _):
+                        upload.responseJSON { [self] response in
+                            guard let json = response.result.value! as? [String: Any] else {
+                                return
+                            }
+                            print("json:",json)
+                            let des = json["description"] as! [String: Any]
+                            let cap = des["captions"] as! [[String: Any]]
+                            let destext = cap[0]["text"] as! String
+                            self.desc = destext
+                            print(self.desc!)
+                            self.audio(text: self.desc)
                         }
-                        let des = json["description"] as! [String: Any]
-                        let cap = des["captions"] as! [[String: Any]]
-                        let destext = cap[0]["text"] as! String
-                        self.desc = destext
-                        print(self.desc!)
-                        self.audio(text: self.desc)
+                    case .failure(let encodingError):
+                        print("ERROR RESPONSE: \(encodingError)")
                     }
-                case .failure(let encodingError):
-                    print("ERROR RESPONSE: \(encodingError)")
-                }
-            })
+                })
+            }else{
+                self.audio(text: "NULL")
+            }
+            
         }
     
     func audio(text: String) {
@@ -230,7 +239,7 @@ class ImageTouchViewController: UIViewController {
         var color_threshold: Float
         var color_threshold2: Float
         //color_threshold = 0.15
-        color_threshold = 0.1
+        color_threshold = 0.06
         color_threshold2 = 0.05
         if (r == 1.0 && g == 1.0 && b == 1.0){
             final_color = "White"
@@ -329,7 +338,7 @@ class ImageTouchViewController: UIViewController {
             return final_color
     }
     
-    //edge detection
+    //edge detection(canny)
     func edgeDetection(){
         let inputImage = self.selectImage
         let filter = SobelEdgeDetection()
